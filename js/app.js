@@ -17,15 +17,32 @@ document.addEventListener('DOMContentLoaded', () => {
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  /* ---------- Nav: mobile toggle ---------- */
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
-  navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
+  /* ---------- Nav: mobile toggle (con soporte para el boton "atras" del celular) ---------- */
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+
+navToggle.addEventListener('click', () => {
+  const isOpen = navLinks.classList.contains('open');
+  if (isOpen) {
+    history.back();
+  } else {
+    navLinks.classList.add('open');
+    history.pushState({ marvinMenu: true }, '');
+  }
+});
+
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    if (navLinks.classList.contains('open')) {
+      navLinks.classList.remove('open');
+      history.back();
+    }
   });
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => navLinks.classList.remove('open'));
-  });
+});
+
+window.addEventListener('popstate', () => {
+  navLinks.classList.remove('open');
+});
 
   /* ---------- Scroll reveal (generic sections) ---------- */
   const revealEls = document.querySelectorAll('.reveal');
