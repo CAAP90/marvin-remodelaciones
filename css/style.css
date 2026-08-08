@@ -543,3 +543,39 @@ section { position: relative; padding: 7rem 6vw; }
   .reveal { opacity: 1 !important; transform: none !important; }
   .marquee-track--left, .marquee-track--right, .marquee-wrap::after { animation: none !important; }
 }
+/* ---------- Lightbox ---------- */
+.mq-card { cursor: pointer; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 15, 10, .92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease;
+  padding: 4vw;
+}
+.lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+.lightbox img {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+.lightbox__close {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  font-size: 2.5rem;
+  color: #fff;
+  line-height: 1;
+  cursor: pointer;
+}
